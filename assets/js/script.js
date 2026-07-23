@@ -94,28 +94,3 @@ if ('IntersectionObserver' in window && !reducedMotion) {
 } else {
   revealItems.forEach((item) => item.classList.add('is-visible'));
 }
-
-const contactForm = document.getElementById('contact-form');
-const formStatus = document.getElementById('form-status');
-
-if (new URLSearchParams(window.location.search).get('contact') === 'sent') {
-  formStatus.textContent = 'Thank you. Your message was sent successfully.';
-}
-
-contactForm.addEventListener('submit', (event) => {
-  if (window.location.protocol !== 'file:') return;
-
-  event.preventDefault();
-  const formData = new FormData(contactForm);
-  if (formData.get('website')) return;
-
-  const name = String(formData.get('name') || '').trim();
-  const email = String(formData.get('email') || '').trim();
-  const message = String(formData.get('message') || '').trim();
-  const subject = encodeURIComponent(`Portfolio enquiry from ${name}`);
-  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-
-  formStatus.textContent = 'Opening your email app…';
-  window.location.href = `mailto:ramraj122004@gmail.com?subject=${subject}&body=${body}`;
-});
-  
